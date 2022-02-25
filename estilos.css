@@ -1,0 +1,152 @@
+:root {
+    --izquierdo_superior: #00BBF5;
+    --izquierdo_inferior:#1CFF57;
+    --derecho_superior: #D5E825;
+    --derecho_inferior: #D13CF5;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+.rebanadas_radio {
+    max-height: 300px;
+    max-width: 120px;
+    min-width: 100px;
+    min-height: 100px;
+}
+
+.rebanada_superior_izquierdo {
+    border-radius: 100% 0 0 0;
+    background: var(--izquierdo_superior);
+    
+}
+
+.rebanada_superior_derecho {
+    border-radius: 0 100% 0 0;
+    background: var(--derecho_superior);
+    
+}
+
+.rebanada_inferior_izquierdo {
+    border-radius: 0 0 0 100%;
+    background: var(--izquierdo_inferior);
+    
+}
+
+.rebanada_inferior_derecho {
+    border-radius: 0 0 100% 0;
+    background: var(--derecho_inferior);
+    
+}
+
+.supererior_izquierda_click {
+    background: var(--izquierdo_superior);
+    transform: scale(1.5);   
+    filter: brightness(1.75);
+    
+}
+
+.supererior_derecha_click {
+    background: var(--derecho_superior);
+    transform: scale(1.5);   
+    filter: brightness(1.75);
+    
+}
+
+.inferior_izquierda_click {
+    background: var(--izquierdo_inferior);
+    transform: scale(1.5);   
+    filter: brightness(1.75);
+    
+}
+
+.inferior_derecha_click {
+    background: var(--derecho_inferior);
+    transform: scale(1.5);   
+    filter: brightness(1.75);
+    
+}
+
+
+
+.color_fallo {
+    background: #a33324 !important;
+    border: solid 2px #a33324 !important;
+    transform: scale(1.5); 
+}
+
+
+.cuadro_simon {
+    position: absolute;
+    height: 0;
+    width: 0;
+    z-index: -10;
+}
+
+
+.flamas {
+    position: relative;
+}
+
+.cuadro_flotante h1 {
+    margin: auto;
+}
+
+
+.msj_fallo {
+    position: relative;
+    left: 480px;
+}
+
+.main-container {
+    z-index: 100;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.nav-height {
+    height: 20vh;
+}
+
+.circulo-central {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: beige;
+    left: 100px;
+    bottom: 200px;
+}
+
+.finalizado_1{
+    display: none;
+    position: relative;
+    left: -200px;
+}
+
+.base-semaforo{
+    position: relative;
+    right: 180px;
+    width: 30px;
+}
+
+.base-semaforo div {
+    width: 30px;
+    height: 30px;
+}
+
+.imagenes {
+    height: 50vh;
+    border-radius: 30px;
+}
+
+.imagenes img {
+    display: none;
+    border-radius: 100%;
+    width: 100%;
+    
+}
