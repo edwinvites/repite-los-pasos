@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="shortcut icon" href="img/circulo.png">
     <!-- surang de flaticon -->
-    <title>Sigue al Capitan</title>
+    <title>Sigue al Instrucciones</title>
 
 </head>
 
@@ -23,14 +23,14 @@
 
                     <div class="container-fluid pt-4 pb-4 ">
                         <div class="row align-items-start">
-                            <div class="col-3">
+                            <div class="col-12 col-md-3">
 
-                                <div id="imagenes_id" class="imagenes">
+                                <div id="imagenes_id" class="imagenes mt-3">
                                     <img id="exito_id" src="./img/felices.jpg" alt="">
                                 </div>
 
                             </div>
-                            <div class="col-6 ">
+                            <div class="col-12 col-md-6">
 
                                 <div class="container">
                                     <div class="row ">
@@ -83,16 +83,16 @@
                                 </div>
 
                             </div>
-                            <div class="col-3">
-                                <div id="imagen_2_id" class="imagenes">
+                            <div class="col-12 col-md-3">
+                                <div id="imagen_2_id" class="imagenes mt-3 ">
                                     <img id="exito_2_id" src="./img/celebración_derecha.png" alt="">
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                </section>
             </div>
-            </section>
         </div>
 
 
@@ -100,13 +100,6 @@
             <div class="col-12 text-center">
                 <h1 id="titulo_id" class="text-light ">Repite las instrucciones</h1>
 
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-
-                        </div>
-                    </div>
-                </div>
 
             </div>
 

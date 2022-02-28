@@ -9,35 +9,13 @@ const rebanada_inferior_derecho_js = document.getElementById(ids_rebanadas[3])
 const globos_1 = document.getElementById('finalizado_1_id');
 
 let clicks_a_seguir = 0;
+let seguro = true;
 
 
 var figuaras_seleccionadas = [];
 let maximo_nivel = 5;
 let errores_permitidos = 2;
 
-
-var x =
-{
-    valor: 10,
-    funcionListener: function (val)
-    {
-        alert('cambio la variable');
-    },
-    set a(val)
-    {
-        this.aListener = val;
-        this.funcionListener(val);
-    },
-    get a()
-    {
-        return this.valor;
-    },
-
-    registerListener: function (listener)
-    {
-        this.funcionListener = listener;
-    }
-}
 
 
 function añadirQuitarColor(id, clase)
@@ -53,11 +31,11 @@ function añadirQuitarColor(id, clase)
 
 function pintarRebanadasSimon(figura_id, posicion, callback, clase)
 {
-    
+
     figuaras_seleccionadas.push(posicion);
-    
+
     callback(figura_id, clase);
-    
+
 }
 
 
@@ -72,22 +50,27 @@ async function pintarRebanadasJugador(figura_id, posicion, callback, clase)
         if (figuaras_seleccionadas.length === 0)
         {
 
+            seguro = true;
+            // debugger;
+
 
 
             if (numero_instrucciones === maximo_nivel)
             {
-                setTimeout(() => {
+                setTimeout(() =>
+                {
                     felicitar_con_imagen();
 
                     $('body').removeClass('bg-dark');
                     $('body').addClass('bg-success');
-                    $('#titulo_id').text('Felicidades');
+                    $('#titulo_id').text('Fin');
+                    $('#titulo_id').show();
                     $('#inicio_id').removeClass('btn-success');
                     $('#inicio_id').addClass('btn-light');
-                    $('#inicio_id').show();                    
+                    $('#inicio_id').show();
                 }, 500);
 
-              
+
 
 
                 return;
@@ -110,16 +93,20 @@ async function pintarRebanadasJugador(figura_id, posicion, callback, clase)
         console.log(errores_permitidos);
         enrojecer_body();
         await oscurecer_body();
+
         if (errores_permitidos === 0)
         {
+            seguro = true;
             enrojecer_body();
             figuaras_seleccionadas = [];
             numero_instrucciones = 1;
             $('#inicio_id').removeClass('btn-success');
             $('#inicio_id').addClass('btn-light');
-            $('#inicio_id').show(); 
+            $('#inicio_id').show();
             return;
         }
+
+
 
     }
 
@@ -130,9 +117,12 @@ rebanada_superior_izquierdo_js.addEventListener('click',
     {
         if (evento.isTrusted)
         {
-            if (clicks_a_seguir === 0 && figuaras_seleccionadas.length > 0)
+            if (clicks_a_seguir === 0 && figuaras_seleccionadas.length > 0 && seguro === false)
             {
+                // debugger;
                 pintarRebanadasJugador(ids_rebanadas[0], 0, añadirQuitarColor, 'supererior_izquierda_click');
+
+
             }
 
 
@@ -151,10 +141,11 @@ rebanada_superior_derecho_js.addEventListener('click',
         if (evento.isTrusted)
         {
 
-            if (clicks_a_seguir === 0 && figuaras_seleccionadas.length > 0)
+            if (clicks_a_seguir === 0 && figuaras_seleccionadas.length > 0 && seguro === false)
             {
-
+// debugger;
                 pintarRebanadasJugador(ids_rebanadas[1], 1, añadirQuitarColor, 'supererior_derecha_click');
+
             }
 
 
@@ -172,10 +163,12 @@ rebanada_inferior_izquierdo_js.addEventListener('click',
     {
         if (evento.isTrusted)
         {
-            if (clicks_a_seguir === 0 && figuaras_seleccionadas.length > 0)
+            if (clicks_a_seguir === 0 && figuaras_seleccionadas.length > 0 && seguro === false)
             {
-
+// debugger;
                 pintarRebanadasJugador(ids_rebanadas[2], 2, añadirQuitarColor, 'inferior_izquierda_click');
+
+
             }
 
         } else
@@ -192,10 +185,11 @@ rebanada_inferior_derecho_js.addEventListener('click',
     {
         if (evento.isTrusted)
         {
-            if (clicks_a_seguir === 0 && figuaras_seleccionadas.length > 0)
+            if (clicks_a_seguir === 0 && figuaras_seleccionadas.length > 0 && seguro === false)
             {
-
+// debugger;
                 pintarRebanadasJugador(ids_rebanadas[3], 3, añadirQuitarColor, 'inferior_derecha_click');
+
             }
 
 
@@ -206,7 +200,21 @@ rebanada_inferior_derecho_js.addEventListener('click',
 
         }
     }
-)
+);
+
+
+const tiempo = function ()
+{
+
+    return new Promise((resolve) =>
+    {
+
+        setTimeout(() =>
+        {
+            resolve('');
+        }, 1200);
+    })
+}
 
 
 
@@ -214,8 +222,12 @@ const instrucciones = async function (clicks)
 {
     clicks_a_seguir = clicks;
 
-    if (clicks_a_seguir === 0)
+    if (clicks_a_seguir <= 0)
     {
+        await tiempo();
+
+        seguro = false;
+
 
         return;
 
@@ -247,6 +259,7 @@ function iniciarJuego()
     numero_instrucciones = 1;
     esconder_imagen();
 
+    $('body').removeClass('bg-danger');
     $('body').removeClass('bg-success');
     $('body').addClass('bg-dark');
 
@@ -254,8 +267,9 @@ function iniciarJuego()
     setTimeout(() =>
     {
         instrucciones(1);
-    
-        $("#inicio_id").css('zIndex',10);
+
+        // $("#inicio_id").css('zIndex', 10);
+
         $('#inicio_id').hide();
         $('#titulo_id').hide();
     }, 1400);
@@ -266,16 +280,20 @@ function iniciarJuego()
 let flamas_container = document.getElementById('flamas_id');
 let main_container = document.querySelector('body');
 
-const enrojecer_body = function () {
+const enrojecer_body = function ()
+{
     $('body').removeClass('bg-dark');
     $('#titulo_id').removeClass('text-dark');
     $('#titulo_id').addClass('text-red');
     $('body').addClass('bg-danger');
 }
 
-const oscurecer_body = function () {
-    return new Promise ((resolve)=>{
-        setTimeout(() => {
+const oscurecer_body = function ()
+{
+    return new Promise((resolve) =>
+    {
+        setTimeout(() =>
+        {
             $('body').removeClass('bg-danger');
             $('body').addClass('bg-dark');
             resolve('');
@@ -291,8 +309,9 @@ let imagenes_html = document.getElementById('imagenes_id');
 let exito_img = document.getElementById('exito_id');
 let exito_img_2 = document.getElementById('exito_2_id');
 
-const felicitar_con_imagen = function () {
-    
+const felicitar_con_imagen = function ()
+{
+
     exito_img.style.display = 'block';
     exito_img_2.style.display = 'block';
 
@@ -300,10 +319,11 @@ const felicitar_con_imagen = function () {
 }
 
 
-const esconder_imagen = function () {
-    
-    exito_img.style.display = 'none';            
-    exito_img_2.style.display = 'none';            
+const esconder_imagen = function ()
+{
+
+    exito_img.style.display = 'none';
+    exito_img_2.style.display = 'none';
 
 }
 
