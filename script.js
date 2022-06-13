@@ -8,36 +8,20 @@ const rebanada_inferior_izquierdo_js = document.getElementById(ids_rebanadas[2])
 const rebanada_inferior_derecho_js = document.getElementById(ids_rebanadas[3])
 const globos_1 = document.getElementById('finalizado_1_id');
 
-let clicks_a_seguir = 0;
-
 
 var figuaras_seleccionadas = [];
 let maximo_nivel = 5;
-let errores_permitidos = 2;
+let errores_permitidos;
+let puede_seleccionar = false;
 
 
-var x =
-{
-    valor: 10,
-    funcionListener: function (val)
-    {
-        alert('cambio la variable');
-    },
-    set a(val)
-    {
-        this.aListener = val;
-        this.funcionListener(val);
-    },
-    get a()
-    {
-        return this.valor;
-    },
+let imagenes_html = document.getElementById('imagenes_id');
+let exito_img = document.getElementById('exito_id');
+let exito_img_2 = document.getElementById('exito_2_id');
+let main_container = document.querySelector('body');
 
-    registerListener: function (listener)
-    {
-        this.funcionListener = listener;
-    }
-}
+const myModal = new bootstrap.Modal(document.getElementById('myModal'), {})
+
 
 
 function añadirQuitarColor(id, clase)
@@ -51,44 +35,44 @@ function añadirQuitarColor(id, clase)
     }, 100);
 }
 
-function pintarRebanadasSimon(figura_id, posicion, callback, clase)
+function iluminarUnCojin(figura_id, posicion, clase)
 {
-    
+
     figuaras_seleccionadas.push(posicion);
-    
-    callback(figura_id, clase);
-    
+
+    añadirQuitarColor(figura_id, clase);
+
 }
 
 
-async function pintarRebanadasJugador(figura_id, posicion, callback, clase)
+async function iluminarCojinJugador(figura_id, posicion, clase)
 {
     if (figuaras_seleccionadas[0] === posicion)
     {
-        callback(figura_id, clase);
+        añadirQuitarColor(figura_id, clase);
 
         figuaras_seleccionadas.shift();
 
         if (figuaras_seleccionadas.length === 0)
         {
 
+            puede_seleccionar = false;
 
+            await pintar_body('green');
+            await pintar_body('dark');
 
             if (numero_instrucciones === maximo_nivel)
             {
-                setTimeout(() => {
-                    felicitar_con_imagen();
+                setTimeout(() =>
+                {
+                    // felicitar_con_imagen();
 
                     $('body').removeClass('bg-dark');
                     $('body').addClass('bg-success');
                     $('#titulo_id').text('Felicidades');
-                    $('#inicio_id').removeClass('btn-success');
-                    $('#inicio_id').addClass('btn-light');
-                    $('#inicio_id').show();                    
+                    $('#inicio_id').show();
+                    myModal.show();
                 }, 500);
-
-              
-
 
                 return;
             }
@@ -105,19 +89,17 @@ async function pintarRebanadasJugador(figura_id, posicion, callback, clase)
 
     } else 
     {
-        callback(figura_id, clase);
+        console.log('errores permitidos antes del codigo ' + errores_permitidos);
         errores_permitidos--;
-        console.log(errores_permitidos);
-        enrojecer_body();
-        await oscurecer_body();
+        console.log('errores permitidos  ' + errores_permitidos);
+        await pintar_body('red');
+        await pintar_body('dark');
         if (errores_permitidos === 0)
         {
-            enrojecer_body();
+            pintar_body('red');
             figuaras_seleccionadas = [];
             numero_instrucciones = 1;
-            $('#inicio_id').removeClass('btn-success');
-            $('#inicio_id').addClass('btn-light');
-            $('#inicio_id').show(); 
+            $('#inicio_id').show();
             return;
         }
 
@@ -125,98 +107,38 @@ async function pintarRebanadasJugador(figura_id, posicion, callback, clase)
 
 }
 
-rebanada_superior_izquierdo_js.addEventListener('click',
-    function (evento)
+
+function iniciarJuego()
+{
+    figuaras_seleccionadas = [];
+    numero_instrucciones = 1;
+    // esconder_imagen();
+
+    $('body').removeClass('bg-success');
+    $('body').addClass('bg-dark');
+
+
+    setTimeout(() =>
     {
-        if (evento.isTrusted)
-        {
-            if (clicks_a_seguir === 0 && figuaras_seleccionadas.length > 0)
-            {
-                pintarRebanadasJugador(ids_rebanadas[0], 0, añadirQuitarColor, 'supererior_izquierda_click');
-            }
+        instrucciones(1);
 
-
-        } else
-        {
-
-            pintarRebanadasSimon(ids_rebanadas[0], 0, añadirQuitarColor, 'supererior_izquierda_click');
-
-        }
-    }
-)
-
-rebanada_superior_derecho_js.addEventListener('click',
-    function (evento)
-    {
-        if (evento.isTrusted)
-        {
-
-            if (clicks_a_seguir === 0 && figuaras_seleccionadas.length > 0)
-            {
-
-                pintarRebanadasJugador(ids_rebanadas[1], 1, añadirQuitarColor, 'supererior_derecha_click');
-            }
-
-
-        } else
-        {
-
-            pintarRebanadasSimon(ids_rebanadas[1], 1, añadirQuitarColor, 'supererior_derecha_click');
-
-        }
-    }
-)
-
-rebanada_inferior_izquierdo_js.addEventListener('click',
-    function (evento)
-    {
-        if (evento.isTrusted)
-        {
-            if (clicks_a_seguir === 0 && figuaras_seleccionadas.length > 0)
-            {
-
-                pintarRebanadasJugador(ids_rebanadas[2], 2, añadirQuitarColor, 'inferior_izquierda_click');
-            }
-
-        } else
-        {
-
-            pintarRebanadasSimon(ids_rebanadas[2], 2, añadirQuitarColor, 'inferior_izquierda_click');
-
-        }
-    }
-)
-
-rebanada_inferior_derecho_js.addEventListener('click',
-    function (evento)
-    {
-        if (evento.isTrusted)
-        {
-            if (clicks_a_seguir === 0 && figuaras_seleccionadas.length > 0)
-            {
-
-                pintarRebanadasJugador(ids_rebanadas[3], 3, añadirQuitarColor, 'inferior_derecha_click');
-            }
-
-
-        } else
-        {
-
-            pintarRebanadasSimon(ids_rebanadas[3], 3, añadirQuitarColor, 'inferior_derecha_click');
-
-        }
-    }
-)
+        $("#inicio_id").css('zIndex', 10);
+        $('#inicio_id').hide();
+        $('#titulo_id').hide();
+    }, 1400);
+}
 
 
 
 const instrucciones = async function (clicks)
 {
-    clicks_a_seguir = clicks;
+    let clicks_a_seguir = clicks;
 
     if (clicks_a_seguir === 0)
     {
-
+        errores_permitidos = 3;
+        console.log("variable errores en la funcion instrucciones : " + errores_permitidos);
+        puede_seleccionar = true;
         return;
 
     } else
@@ -240,42 +162,57 @@ const instrucciones = async function (clicks)
 
 }
 
-function iniciarJuego()
+
+
+const pintar_body = async function (color)
 {
-    errores_permitidos = 2;
-    figuaras_seleccionadas = [];
-    numero_instrucciones = 1;
-    esconder_imagen();
 
-    $('body').removeClass('bg-success');
-    $('body').addClass('bg-dark');
+    // $('body').removeClass('bg-dark');
+    // $('#titulo_id').removeClass('text-dark');
 
-
-    setTimeout(() =>
+    switch (color)
     {
-        instrucciones(1);
-    
-        $("#inicio_id").css('zIndex',10);
-        $('#inicio_id').hide();
-        $('#titulo_id').hide();
-    }, 1400);
+        case 'green':
+            await colorear_verde();
+
+            break;
+        case 'red':
+            $('body').removeClass('bg-dark')
+            $('body').addClass('bg-danger');
+
+            break;
+
+        case 'dark':
+
+            await oscurecer_body();
+
+            break;
+        default:
+            break;
+    }
 }
 
-
-
-let flamas_container = document.getElementById('flamas_id');
-let main_container = document.querySelector('body');
-
-const enrojecer_body = function () {
-    $('body').removeClass('bg-dark');
-    $('#titulo_id').removeClass('text-dark');
-    $('#titulo_id').addClass('text-red');
-    $('body').addClass('bg-danger');
+const colorear_verde = function ()
+{
+    return new Promise((resolve) =>
+    {
+        setTimeout(() =>
+        {
+            $('body').removeClass('bg-dark');
+            $('body').removeClass('bg-danger');
+            $('body').addClass('bg-success');
+            resolve('');
+        }, 500);
+    })
 }
 
-const oscurecer_body = function () {
-    return new Promise ((resolve)=>{
-        setTimeout(() => {
+const oscurecer_body = function ()
+{
+    return new Promise((resolve) =>
+    {
+        setTimeout(() =>
+        {
+            $('body').removeClass('bg-success');
             $('body').removeClass('bg-danger');
             $('body').addClass('bg-dark');
             resolve('');
@@ -283,31 +220,112 @@ const oscurecer_body = function () {
     })
 }
 
-let luz_verde = document.getElementById('verde_smforo');
-let luz_amarilla = document.getElementById('amarillo_smforo');
-let luz_roja = document.getElementById('rojo_smforo');
-
-let imagenes_html = document.getElementById('imagenes_id');
-let exito_img = document.getElementById('exito_id');
-let exito_img_2 = document.getElementById('exito_2_id');
-
-const felicitar_con_imagen = function () {
-    
-    exito_img.style.display = 'block';
-    exito_img_2.style.display = 'block';
-
-    return;
-}
 
 
-const esconder_imagen = function () {
-    
-    exito_img.style.display = 'none';            
-    exito_img_2.style.display = 'none';            
 
-}
+// const felicitar_con_imagen = function ()
+// {
+
+//     exito_img.style.display = 'block';
+//     exito_img_2.style.display = 'block';
+
+//     return;
+// }
 
 
+// const esconder_imagen = function ()
+// {
+
+//     exito_img.style.display = 'none';
+//     exito_img_2.style.display = 'none';
+
+// }
+
+
+
+
+rebanada_superior_izquierdo_js.addEventListener('click',
+    function (evento)
+    {
+        if (evento.isTrusted)
+        {
+            if (puede_seleccionar === true && figuaras_seleccionadas.length > 0)
+            {
+                iluminarCojinJugador(ids_rebanadas[0], 0, 'supererior_izquierda_click');
+            }
+
+
+        } else
+        {
+
+            iluminarUnCojin(ids_rebanadas[0], 0, 'supererior_izquierda_click');
+
+        }
+    }
+)
+
+rebanada_superior_derecho_js.addEventListener('click',
+    function (evento)
+    {
+        if (evento.isTrusted)
+        {
+
+            if (puede_seleccionar === true && figuaras_seleccionadas.length > 0)
+            {
+
+                iluminarCojinJugador(ids_rebanadas[1], 1, 'supererior_derecha_click');
+            }
+
+
+        } else
+        {
+
+            iluminarUnCojin(ids_rebanadas[1], 1, 'supererior_derecha_click');
+
+        }
+    }
+)
+
+rebanada_inferior_izquierdo_js.addEventListener('click',
+    function (evento)
+    {
+        if (evento.isTrusted)
+        {
+            if (puede_seleccionar === true && figuaras_seleccionadas.length > 0)
+            {
+
+                iluminarCojinJugador(ids_rebanadas[2], 2, 'inferior_izquierda_click');
+            }
+
+        } else
+        {
+
+            iluminarUnCojin(ids_rebanadas[2], 2, 'inferior_izquierda_click');
+
+        }
+    }
+)
+
+rebanada_inferior_derecho_js.addEventListener('click',
+    function (evento)
+    {
+        if (evento.isTrusted)
+        {
+            if (puede_seleccionar === true && figuaras_seleccionadas.length > 0)
+            {
+
+                iluminarCojinJugador(ids_rebanadas[3], 3, 'inferior_derecha_click');
+            }
+
+
+        } else
+        {
+
+            iluminarUnCojin(ids_rebanadas[3], 3, 'inferior_derecha_click');
+
+        }
+    }
+)
 
 
 

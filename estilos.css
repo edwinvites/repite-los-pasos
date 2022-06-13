@@ -12,9 +12,10 @@ body {
 
 .cojines {
     display: grid;
-    grid-template-columns: 240px 0px 240px;
-    grid-template-rows: 240px 0px 240px;
+    grid-template-columns: 150px 0px 150px;
+    grid-template-rows: 150px 0px 150px;
     align-items: flex-end;
+    padding-top: 100px;
 }
 
 .centro-de-juego {
@@ -24,67 +25,68 @@ body {
 .centro-de-juego div:nth-child(1){
     position: absolute;
     background-color: gray;
-    height: 120px;
-    width: 120px;
-    top: -60px;
-    left: -60px;
+    height: 150px;
+    width: 150px;
+    top: -75px;
+    left: -75px;
     border-radius: 50%;
+    z-index: 200;
+    /* display: none; */
 }
 
 .rebanadas_radio {
-    height: 240px;
-    width: 240px;
+    height: 150px;
+    width: 150px;
 }
 
 .rebanada_superior_izquierdo {
-    border-radius: 100% 0 0 0;
+    border-radius: 100% 0 20% 0;
     background: var(--izquierdo_superior);
     
 }
 
 .rebanada_superior_derecho {
-    border-radius: 0 100% 0 0;
+    border-radius: 0 100% 0 30%;
     background: var(--derecho_superior);
     
 }
 
 .rebanada_inferior_izquierdo {
-    border-radius: 0 0 0 100%;
+    border-radius: 0 30% 0 100%;
     background: var(--izquierdo_inferior);
     
 }
 
 .rebanada_inferior_derecho {
-    border-radius: 0 0 100% 0;
+    border-radius: 30% 0 100% 0;
     background: var(--derecho_inferior);
     
 }
 
 .supererior_izquierda_click {
-    background: var(--izquierdo_superior);
+    -webkit-box-shadow: -50px -50px 25px 50px var(--izquierdo_superior); 
+    box-shadow: -50px -50px 25px 50px var(--izquierdo_superior);
+
+    /* background: var(--izquierdo_superior);
     transform: scale(1.5);   
-    filter: brightness(1.75);
+    filter: brightness(1.75); */
     
 }
 
 .supererior_derecha_click {
-    background: var(--derecho_superior);
-    transform: scale(1.5);   
-    filter: brightness(1.75);
-    
+    -webkit-box-shadow: 50px -50px 25px 50px var(--derecho_superior); 
+    box-shadow: 50px -50px 25px 50px var(--derecho_superior);
 }
 
 .inferior_izquierda_click {
-    background: var(--izquierdo_inferior);
-    transform: scale(1.5);   
-    filter: brightness(1.75);
+    -webkit-box-shadow: -50px 50px 25px 50px var(--izquierdo_inferior); 
+    box-shadow: -50px 50px 25px 50px var(--izquierdo_inferior);
     
 }
 
 .inferior_derecha_click {
-    background: var(--derecho_inferior);
-    transform: scale(1.5);   
-    filter: brightness(1.75);
+    -webkit-box-shadow: 50px 50px 25px 50px var(--derecho_inferior); 
+    box-shadow: 50px 50px 25px 50px var(--derecho_inferior);
     
 }
 
@@ -145,4 +147,24 @@ body {
     border-radius: 100%;
     width: 100%;
     
+}
+
+
+/* animaciones */
+
+.ganador-text{
+    border-radius: 10px;
+    background-color: var(--bs-success);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.05);
+  animation: shadow-pulse 1s infinite;
+}
+
+@keyframes shadow-pulse
+{
+     0% {
+          box-shadow: 0 0 0 0px rgba(255, 255, 255, 0.2);
+     }
+     100% {
+          box-shadow: 0 0 0 35px rgba(255, 255, 255, 0);
+     }
 }
