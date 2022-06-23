@@ -112,7 +112,7 @@ function iniciarJuego()
 {
     figuaras_seleccionadas = [];
     numero_instrucciones = 1;
-    
+
     $('#inicio_id').hide();
     $('body').removeClass('bg-success');
     $('body').addClass('bg-dark');
@@ -126,7 +126,19 @@ function iniciarJuego()
     }, 1400);
 }
 
+const permitirSeleccionar = () =>
+{
 
+    return new Promise((res, rej) =>
+    {
+        setTimeout(() =>
+        {
+            puede_seleccionar = true;
+            res();
+        }, 800)
+    })
+
+}
 
 const instrucciones = async function (clicks)
 {
@@ -135,8 +147,7 @@ const instrucciones = async function (clicks)
     if (clicks_a_seguir === 0)
     {
         errores_permitidos = 3;
-        console.log("variable errores en la funcion instrucciones : " + errores_permitidos);
-        puede_seleccionar = true;
+        await permitirSeleccionar();
         return;
 
     } else
@@ -153,7 +164,7 @@ const instrucciones = async function (clicks)
 
             instrucciones(clicks_a_seguir - 1);
 
-        }, 800);
+        }, 1200);
 
     }
 

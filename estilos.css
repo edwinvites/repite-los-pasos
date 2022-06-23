@@ -1,8 +1,8 @@
 :root {
-    --izquierdo_superior: #00BBF5;
-    --izquierdo_inferior:#D5E825;
-    --derecho_superior: #D5E825;
-    --derecho_inferior: #00BBF5;
+    --izquierdo_superior: #7052ff;
+    --izquierdo_inferior: #ff81ff;
+    --derecho_superior: #ffff51;
+    --derecho_inferior: #ff7360;
 }
 
 body {
