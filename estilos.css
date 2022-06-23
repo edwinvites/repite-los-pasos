@@ -1,8 +1,8 @@
 :root {
     --izquierdo_superior: #00BBF5;
-    --izquierdo_inferior:#1CFF57;
+    --izquierdo_inferior:#D5E825;
     --derecho_superior: #D5E825;
-    --derecho_inferior: #D13CF5;
+    --derecho_inferior: #00BBF5;
 }
 
 body {
@@ -10,12 +10,21 @@ body {
     height: 100vh;
 }
 
+.main {
+  height: 100%;  
+}
+
+.col-principal {
+    height: 100vh;
+}
+
 .cojines {
     display: grid;
-    grid-template-columns: 150px 0px 150px;
-    grid-template-rows: 150px 0px 150px;
-    align-items: flex-end;
-    padding-top: 100px;
+    grid-template-columns: 300px 0px 300px;
+    grid-template-rows: 300px 0px 300px;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
 }
 
 .centro-de-juego {
@@ -35,30 +44,30 @@ body {
 }
 
 .rebanadas_radio {
-    height: 150px;
-    width: 150px;
+    height: 300px;
+    width: 300px;
 }
 
 .rebanada_superior_izquierdo {
-    border-radius: 100% 0 20% 0;
+    border-radius: 100% 15% 20% 15%;
     background: var(--izquierdo_superior);
     
 }
 
 .rebanada_superior_derecho {
-    border-radius: 0 100% 0 30%;
+    border-radius: 15% 100% 15% 30%;
     background: var(--derecho_superior);
     
 }
 
 .rebanada_inferior_izquierdo {
-    border-radius: 0 30% 0 100%;
+    border-radius: 15% 30% 15% 100%;
     background: var(--izquierdo_inferior);
     
 }
 
 .rebanada_inferior_derecho {
-    border-radius: 30% 0 100% 0;
+    border-radius: 30% 15% 100% 15%;
     background: var(--derecho_inferior);
     
 }
@@ -120,22 +129,6 @@ body {
     bottom: 200px;
 }
 
-.finalizado_1{
-    display: none;
-    position: relative;
-    left: -200px;
-}
-
-.base-semaforo{
-    position: relative;
-    right: 180px;
-    width: 30px;
-}
-
-.base-semaforo div {
-    width: 30px;
-    height: 30px;
-}
 
 .imagenes {
     height: 50vh;
@@ -149,14 +142,35 @@ body {
     
 }
 
+.boton {
+    font-size: 80px;
+}
 
-/* animaciones */
+.titulo {
+    font-size: 70px;
+}
+
+.modal-main {
+    height: 100%;
+}
+
+.mensaje-finalizacion {
+    font-size: 50px;
+}
+
 
 .ganador-text{
     border-radius: 10px;
-    background-color: var(--bs-success);
+  font-size: 80px;
+}
+
+
+/* animaciones */
+
+.mensaje-finalizacion div button {
+    font-size: 40px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.05);
-  animation: shadow-pulse 1s infinite;
+    animation: shadow-pulse 1s infinite;
 }
 
 @keyframes shadow-pulse
@@ -168,3 +182,11 @@ body {
           box-shadow: 0 0 0 35px rgba(255, 255, 255, 0);
      }
 }
+
+/* @media (max-width: 500px) {
+    .rebanadas_radio {
+        height: 300px;
+        width: 300px;
+        background-color: white;
+    }
+} */

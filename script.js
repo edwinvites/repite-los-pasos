@@ -112,8 +112,8 @@ function iniciarJuego()
 {
     figuaras_seleccionadas = [];
     numero_instrucciones = 1;
-    // esconder_imagen();
-
+    
+    $('#inicio_id').hide();
     $('body').removeClass('bg-success');
     $('body').addClass('bg-dark');
 
@@ -122,8 +122,6 @@ function iniciarJuego()
     {
         instrucciones(1);
 
-        $("#inicio_id").css('zIndex', 10);
-        $('#inicio_id').hide();
         $('#titulo_id').hide();
     }, 1400);
 }
@@ -167,8 +165,6 @@ const instrucciones = async function (clicks)
 const pintar_body = async function (color)
 {
 
-    // $('body').removeClass('bg-dark');
-    // $('#titulo_id').removeClass('text-dark');
 
     switch (color)
     {
