@@ -20,8 +20,8 @@ body {
 
 .cojines {
     display: grid;
-    grid-template-columns: 300px 0px 300px;
-    grid-template-rows: 300px 0px 300px;
+    grid-template-columns: 100px 0px 100px;
+    grid-template-rows: 100px 0px 100px;
     justify-content: center;
     justify-items: center;
     align-items: center;
@@ -34,18 +34,18 @@ body {
 .centro-de-juego div:nth-child(1){
     position: absolute;
     background-color: gray;
-    height: 150px;
-    width: 150px;
-    top: -75px;
-    left: -75px;
+    height: 50px;
+    width: 50px;
+    top: -25px;
+    left: -25px;
     border-radius: 50%;
     z-index: 200;
     /* display: none; */
 }
 
 .rebanadas_radio {
-    height: 300px;
-    width: 300px;
+    height: 100px;
+    width: 100px;
 }
 
 .rebanada_superior_izquierdo {
@@ -108,46 +108,12 @@ body {
 }
 
 
-.cuadro_simon {
-    position: absolute;
-    height: 0;
-    width: 0;
-    z-index: -10;
-}
-
-
-.nav-height {
-    height: 20vh;
-}
-
-.circulo-central {
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    background-color: beige;
-    left: 100px;
-    bottom: 200px;
-}
-
-
-.imagenes {
-    height: 50vh;
-    border-radius: 30px;
-}
-
-.imagenes img {
-    display: none;
-    border-radius: 100%;
-    width: 100%;
-    
-}
-
 .boton {
-    font-size: 80px;
+    font-size: 20px;
 }
 
 .titulo {
-    font-size: 70px;
+    font-size: 30px;
 }
 
 .modal-main {
