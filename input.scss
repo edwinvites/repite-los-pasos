@@ -1,0 +1,209 @@
+@import "./bootstrap/bootstrap/scss/functions";
+
+$dark: #000000;
+$enable-rounded: false;
+
+@import "./bootstrap/bootstrap/scss/variables";
+
+
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark,
+  "uno" : #ffef29,
+  "dos": #0effdb,
+  "tres": #0668d7,
+  "cuatro": #123273
+);
+
+@import "./bootstrap/bootstrap/scss/maps";
+@import "./bootstrap/bootstrap/scss/mixins";
+
+$utilities: (
+    "width": (
+      property: width,
+      class: w,
+      values: (
+        25: 25%,
+        33: 33%,
+        50: 50%,
+        66: 66%,
+        75: 75%,
+        100: 100%,
+        auto: auto
+      )
+    )
+);
+
+@import "./bootstrap/bootstrap/scss/utilities";
+
+
+
+
+
+@import "./bootstrap/bootstrap/scss/utilities/api";
+
+
+:root {
+    --izquierdo_superior: #7052ff;
+    --izquierdo_inferior: #ff81ff;
+    --derecho_superior: #ffff51;
+    --derecho_inferior: #ff7360;
+}
+
+body {
+    margin-top: 10px;
+    height: 100vh;
+}
+
+.main {
+  height: 100%;  
+}
+
+.col-principal {
+    height: 100vh;
+}
+
+.cojines {
+    display: grid;
+    grid-template-columns: 100px 0px 100px;
+    grid-template-rows: 100px 0px 100px;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}
+
+.centro-de-juego {
+    position: relative;
+}
+
+.centro-de-juego div:nth-child(1){
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: -25px;
+    left: -25px;
+    border-radius: 50%;
+    z-index: 200;
+    /* display: none; */
+}
+
+.rebanadas_radio {
+    height: 100px;
+    width: 100px;
+}
+
+.rebanada_superior_izquierdo {
+    border-radius: 100% 15% 20% 15%;
+    background: var(--izquierdo_superior);
+    
+}
+
+.rebanada_superior_derecho {
+    border-radius: 15% 100% 15% 30%;
+    background: var(--derecho_superior);
+    
+}
+
+.rebanada_inferior_izquierdo {
+    border-radius: 15% 30% 15% 100%;
+    background: var(--izquierdo_inferior);
+    
+}
+
+.rebanada_inferior_derecho {
+    border-radius: 30% 15% 100% 15%;
+    background: var(--derecho_inferior);
+    
+}
+
+.supererior_izquierda_click {
+
+    -webkit-box-shadow: -89px -89px 0px 24px var(--bs-uno);
+    -moz-box-shadow: -89px -89px 0px 24px var(--bs-uno);
+    box-shadow: -89px -89px 0px 24px var(--bs-uno);
+    
+}
+
+.supererior_derecha_click {
+
+    -webkit-box-shadow: 82px -82px 0px 24px var(--bs-dos);
+    -moz-box-shadow: 82px -82px 0px 24px var(--bs-dos);
+    box-shadow: 82px -82px 0px 24px var(--bs-dos);
+
+}
+
+.inferior_izquierda_click {
+    -webkit-box-shadow: -89px 85px 0px 24px var(--bs-tres);
+    -moz-box-shadow: -89px 85px 0px 24px var(--bs-tres);
+    box-shadow: -89px 85px 0px 24px var(--bs-tres);
+    
+}
+
+.inferior_derecha_click {
+
+    -webkit-box-shadow: 82px 81px 0px 24px var(--bs-cuatro);
+    -moz-box-shadow: 82px 81px 0px 24px var(--bs-cuatro);
+    box-shadow: 82px 81px 0px 24px var(--bs-cuatro);
+
+    
+}
+
+
+
+.color_fallo {
+    background: #a33324 !important;
+    border: solid 2px #a33324 !important;
+    transform: scale(1.5); 
+}
+
+
+.boton {
+    font-size: 20px;
+}
+
+.titulo {
+    font-size: 30px;
+}
+
+.modal-main {
+    height: 100%;
+}
+
+.mensaje-finalizacion {
+    font-size: 50px;
+}
+
+
+.ganador-text{
+    border-radius: 10px;
+  font-size: 80px;
+}
+
+
+/* animaciones */
+
+.mensaje-finalizacion div button {
+    font-size: 40px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.05);
+    animation: shadow-pulse 1s infinite;
+}
+
+@keyframes shadow-pulse
+{
+     0% {
+          box-shadow: 0 0 0 0px rgba(255, 255, 255, 0.2);
+     }
+     100% {
+          box-shadow: 0 0 0 35px rgba(255, 255, 255, 0);
+     }
+}
+
+@import "./bootstrap/bootstrap/scss/bootstrap.scss"
+
+
