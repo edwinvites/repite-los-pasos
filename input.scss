@@ -1,6 +1,5 @@
 @import "./bootstrap/bootstrap/scss/functions";
 
-$dark: #000000;
 $enable-rounded: false;
 
 @import "./bootstrap/bootstrap/scss/variables";
@@ -18,7 +17,8 @@ $theme-colors: (
   "uno" : #ffef29,
   "dos": #0effdb,
   "tres": #0668d7,
-  "cuatro": #123273
+  "cuatro": #123273,
+  "black" : #0000
 );
 
 @import "./bootstrap/bootstrap/scss/maps";
@@ -41,20 +41,22 @@ $utilities: (
 );
 
 @import "./bootstrap/bootstrap/scss/utilities";
-
-
-
-
-
 @import "./bootstrap/bootstrap/scss/utilities/api";
-
-
-:root {
-    --izquierdo_superior: #7052ff;
-    --izquierdo_inferior: #ff81ff;
-    --derecho_superior: #ffff51;
-    --derecho_inferior: #ff7360;
-}
+@import "./bootstrap/bootstrap/scss/nav";
+@import "./bootstrap/bootstrap/scss/navbar";
+@import "./bootstrap/bootstrap/scss/grid";
+@import "./bootstrap/bootstrap/scss/images";
+@import "./bootstrap/bootstrap/scss/modal";
+@import "./bootstrap/bootstrap/scss/close";
+@import "./bootstrap/bootstrap/scss/containers";
+@import "./bootstrap/bootstrap/scss/offcanvas";
+@import "./bootstrap/bootstrap/scss/reboot";
+@import "./bootstrap/bootstrap/scss/root";
+@import "./bootstrap/bootstrap/scss/tables";
+@import "./bootstrap/bootstrap/scss/type";
+@import "./bootstrap/bootstrap/scss/button-group";
+@import "./bootstrap/bootstrap/scss/buttons";
+@import "./bootstrap/bootstrap/scss/carousel";
 
 body {
     margin-top: 10px;
@@ -71,8 +73,8 @@ body {
 
 .cojines {
     display: grid;
-    grid-template-columns: 100px 0px 100px;
-    grid-template-rows: 100px 0px 100px;
+    grid-template-columns: 200px 0px 200px;
+    grid-template-rows: 200px 0px 200px;
     justify-content: center;
     justify-items: center;
     align-items: center;
@@ -94,8 +96,8 @@ body {
 }
 
 .rebanadas_radio {
-    height: 100px;
-    width: 100px;
+    height: 100%;
+    width: 100%;
 }
 
 .rebanada_superior_izquierdo {
@@ -156,11 +158,6 @@ body {
 
 
 
-.color_fallo {
-    background: #a33324 !important;
-    border: solid 2px #a33324 !important;
-    transform: scale(1.5); 
-}
 
 
 .boton {
@@ -204,6 +201,5 @@ body {
      }
 }
 
-@import "./bootstrap/bootstrap/scss/bootstrap.scss"
 
 
