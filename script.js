@@ -296,6 +296,7 @@ async function iniciarJuego() {
 
     ids_aleatorios = [];
     $('#inicio').attr('disabled', true);
+    $('#repetir').removeClass('disabled');
     animacion_botones('.btn-info', "clickBotonJugar");
     ids_random(numero_instrucciones);
     // divCantidadDRepeticiones.innerText = numero_instrucciones;
