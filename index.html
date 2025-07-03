@@ -1,98 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1, user-scalable=no">
-    </meta>
-    <link href="./bootstrap/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="estilo2.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="shortcut icon" href="img/circulo.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1, user-scalable=no" />
+    <link
+      href="./bootstrap/bootstrap/dist/css/bootstrap.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link rel="shortcut icon" href="img/circulo.png" />
     <!-- surang de flaticon -->
-    <title>Repite</title>
-</head>
+    <title>Sigue</title>
+  </head>
 
-<body class=" bg-dark  m-0 p-0 ">
-    <main class="container-fluid main ">
-        <div class="row pt-4">
-            <div class="col-12">
+  <body class="bg-dark m-0 p-0 d-flex justify-content-between">
+    <aside class="d-inline">
+      <ul>
+        <li>
+          <button
+            id="btn-inicio"
+            class="btn btn-success btn-sm boton-jugar"
+            onclick="iniciarJuego()"
+          >
+            Jugar
+          </button>
+        </li>
+        <li>
+          <p class="text-white-50">Sigue la secuencia de teclas</p>
+        </li>
+        <li></li>
+      </ul>
+    </aside>
+    <main class="container-fluid main">
+      <div class="grid mx-auto" style="--bs-gap: 0rem; --bs-columns: 2">
+        <div class="g-col-1 bg-uno cuadro-sup-izq"></div>
+        <div class="g-col-1 bg-dos cuadro-sup-der"></div>
+        <div class="g-col-1 bg-tres cuadro-inf-izq"></div>
+        <div class="g-col-1 bg-cuatro cuadro-inf-der"></div>
+      </div>
+      <!-- <div class="row pt-4">
+        <div class="col-12">
+          <div class="container text-center">
+            <div class="row align-items-center">
+              <div class="col-4">
+                <p id="titulo_id" class="text-white text-center mt-4">
+                  Atento a los botones
+                </p>
+              </div>
+              <div class="col-4">
+                <button
+                  id="inicio"
+                  class="btn btn-info btn-lg boton"
+                  onclick="iniciarJuego()"
+                >
+                  Jugar
+                </button>
+              </div>
 
-                <div class="container text-center">
-                    <div class="row align-items-center">
-                        <div class="col-4">
-                            <p id="titulo_id" class="text-white text-center mt-4 ">Atento a los botones</p>
-                        </div>
-                        <div class="col-4">
-                            <button id="inicio" class="btn btn-info btn-lg boton " onclick="iniciarJuego()">
-                                Jugar
-                            </button>
-                        </div>
-
-                        <div class="col-4 text-white ">
-
-                            <button id="repetir" class="btn btn-primary disabled btn-lg boton" onclick="repetir()">Repetir</button>
-                            
-                        </div>
-                    </div>
-                </div>
-
-
+              <div class="col-4 text-white">
+                <button
+                  id="repetir"
+                  class="btn btn-primary disabled btn-lg boton"
+                  onclick="repetir()"
+                >
+                  Repetir
+                </button>
+              </div>
             </div>
+          </div>
         </div>
+      </div> -->
 
-
-
-        <div class="row align-items-center col-principal">
-            <div class="col-12 ">
-                <div class="d-flex justify-content-center flex-column">
-                    <div class="cojines">
-                        <div id="uno" class="w-100 h-100 bg-uno rounded"></div>
-                        <div></div>
-                        <div id="dos" class="w-100 h-100 bg-dos rounded"></div>
-                        <div></div>
-                        <div class="centro-de-juego">
-                            <div id="centro-de-juego" class=""></div>
-                        </div>
-                        <div></div>
-                        <div id="tres" class="w-100 h-100 bg-tres rounded"></div>
-                        <div></div>
-                        <div id="cuatro" class="w-100 h-100 bg-cuatro rounded"></div>
-                    </div>
-                </div>
+      <!-- <div class="row align-items-center col-principal">
+        <div class="col-12">
+          <section class="d-flex justify-content-center flex-column">
+            <div class="cojines">
+              <div id="uno" class="w-100 h-100 bg-uno rounded"></div>
+              <div id="dos" class="w-100 h-100 bg-dos rounded"></div>
+              <div id="tres" class="w-100 h-100 bg-tres rounded"></div>
+              <div id="cuatro" class="w-100 h-100 bg-cuatro rounded"></div>
             </div>
+          </section>
         </div>
-
-
+      </div> -->
     </main>
-    <div class="modal" id="myModal" tabindex="-1">
-        <div class="modal-dialog modal-fullscreen modal-dialog-centered ">
-            <div class="modal-content bg-dark">
-                <div class="modal-body text-white">
-                    <div class="d-flex flex-column justify-content-center modal-main">
-                        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                        <div class="container ">
-                            <div class="row justify-content-center">
-                                <div class="col-12 mensaje-finalizacion">
-                                    <p class="modal-title text-white text-center ganador-text mb-4 ">Ganó</p>
-                                    <div class="d-grid m-2">
-                                        <button type="button" class="btn btn-success text-white mx-auto "
-                                            data-bs-dismiss="modal" onclick="iniciarJuego()">Repetir</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <!-- <div class="modal" id="myModal" tabindex="-1">
+      <div class="modal-dialog modal-fullscreen modal-dialog-centered">
+        <div class="modal-content bg-dark">
+          <div class="modal-body text-white">
+            <div class="d-flex flex-column justify-content-center modal-main">
+              <button
+                type="button"
+                class="btn-close bg-light"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col-12 mensaje-finalizacion">
+                    <p
+                      class="modal-title text-white text-center ganador-text mb-4"
+                    >
+                      Ganó
+                    </p>
+                    <div class="d-grid m-2">
+                      <button
+                        type="button"
+                        class="btn btn-success text-white mx-auto"
+                        data-bs-dismiss="modal"
+                        onclick="iniciarJuego()"
+                      >
+                        Repetir
+                      </button>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
+      </div>
+    </div> -->
 
     <script src="./jquery.js"></script>
     <script src="./bootstrap/bootstrap/dist/js/bootstrap.js"></script>
     <script src="script.js"></script>
     <script src="anime.min.js"></script>
-</body>
-
+  </body>
 </html>
