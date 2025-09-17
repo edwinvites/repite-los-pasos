@@ -12,81 +12,82 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
-    <link rel="shortcut icon" href="img/circulo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manufacturing+Consent&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="img/collage.png" />
     <!-- surang de flaticon -->
     <title>Sigue</title>
   </head>
 
-  <body class="bg-dark m-0 p-0 d-flex justify-content-between">
-    <aside class="d-inline">
-      <ul>
-        <li>
-          <button
-            id="btn-inicio"
-            class="btn btn-success btn-sm boton-jugar"
-            onclick="iniciarJuego()"
+  <body class=" m-0 p-0 d-flex justify-content-between" style="background-image: url('./img/425.jpg'); background-size: cover;">
+    <aside class=" px-3 mx-0 d-flex justify-content-between flex-column">
+      <section>
+        <ul class="my-5 px-0" style="list-style-type: none;">
+          <li class=" d-flex justify-content-center">
+            <button
+              id="btn-inicio"
+              class="btn btn-success text-dark boton-jugar rounded-circle fs-2"
+              onclick="iniciarJuego()"
+            style="width: 130px; height: 130px;"
+              >
+              Jugar
+            </button>
+          </li>
+          <li class="mt-3  rounded "> 
+            <p class="text-dark fs-5 text-center " style="opacity: 1; font-family: 'Courier New', Courier, monospace;">Sigue la secuencia de teclas</p>
+          </li>
+        </ul>
+      </section>
+      <section class="text-dark  text-center bg-light " >
+        <div
+          class="progress"
+          role="progressbar"
+          aria-label="Basic example"
+          aria-valuenow="100"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        >
+          <div
+            class="progress-bar progress-bar-striped progress-bar-animated"
+            style="width: 100%"
+          ></div>
+        </div>
+        <p class="mt-5 fs-6">Toques</p>
+        <p class="fs-3" id="cantidad_de_toques" style="height: 50px;"></p>
+      </section>
+      <section>
+        <audio controls >
+          <source src="./assets/gaming-hard-164122.mp3" type="audio/mpeg" />
+          Tu navegador no soporta audio HTML5.
+        </audio>
+        <div class="text-center text-dark " >
+
+          <span class="fs-6" style="font-size: 0.5rem !important;"> Music by </span>
+          <a style="font-size: 0.5rem !important;"
+            class="fs-6 text-dark"
+            href="https://pixabay.com/es/users/ivantraveso-23740235/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=164122"
+            >Ivan Traveso</a
           >
-            Jugar
-          </button>
-        </li>
-        <li>
-          <p class="text-white-50">Sigue la secuencia de teclas</p>
-        </li>
-        <li></li>
-      </ul>
+          <span class="fs-6" style="font-size: 0.5rem !important;"> from </span>
+          <a style="font-size: 0.5rem !important;"
+            class="fs-6 text-dark"
+            href="https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=164122"
+            >Pixabay</a
+          >
+        </div>
+
+      </section>
     </aside>
-    <main class="container-fluid main">
-      <div class="grid mx-auto" style="--bs-gap: 0rem; --bs-columns: 2">
-        <div class="g-col-1 bg-uno cuadro-sup-izq"></div>
-        <div class="g-col-1 bg-dos cuadro-sup-der"></div>
-        <div class="g-col-1 bg-tres cuadro-inf-izq"></div>
-        <div class="g-col-1 bg-cuatro cuadro-inf-der"></div>
+    <main class="container-fluid d-flex justify-content-center flex-column position-relative" >
+      <p id="caja_mensajes" class="position-absolute top-0 pt-5 text-danger w-100 text-center" style="font-size: 50px; font-family: 'Courier New', Courier, monospace;"></p>
+      <div id="caja_botones" class="grid mx-auto my-auto" style="--bs-gap: 0rem; --bs-columns: 2">
+        <div id="sup_izq" class="g-col-1 bg-uno cuadro-sup-izq colores"></div>
+        <div id="sup_der" class="g-col-1 bg-dos cuadro-sup-der colores"></div>
+        <div id="inf_izq" class="g-col-1 bg-tres cuadro-inf-izq colores"></div>
+        <div id="inf_der" class="g-col-1 bg-cuatro cuadro-inf-der colores"></div>
       </div>
-      <!-- <div class="row pt-4">
-        <div class="col-12">
-          <div class="container text-center">
-            <div class="row align-items-center">
-              <div class="col-4">
-                <p id="titulo_id" class="text-white text-center mt-4">
-                  Atento a los botones
-                </p>
-              </div>
-              <div class="col-4">
-                <button
-                  id="inicio"
-                  class="btn btn-info btn-lg boton"
-                  onclick="iniciarJuego()"
-                >
-                  Jugar
-                </button>
-              </div>
 
-              <div class="col-4 text-white">
-                <button
-                  id="repetir"
-                  class="btn btn-primary disabled btn-lg boton"
-                  onclick="repetir()"
-                >
-                  Repetir
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- <div class="row align-items-center col-principal">
-        <div class="col-12">
-          <section class="d-flex justify-content-center flex-column">
-            <div class="cojines">
-              <div id="uno" class="w-100 h-100 bg-uno rounded"></div>
-              <div id="dos" class="w-100 h-100 bg-dos rounded"></div>
-              <div id="tres" class="w-100 h-100 bg-tres rounded"></div>
-              <div id="cuatro" class="w-100 h-100 bg-cuatro rounded"></div>
-            </div>
-          </section>
-        </div>
-      </div> -->
     </main>
     <!-- <div class="modal" id="myModal" tabindex="-1">
       <div class="modal-dialog modal-fullscreen modal-dialog-centered">
@@ -128,7 +129,7 @@
 
     <script src="./jquery.js"></script>
     <script src="./bootstrap/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="script.js"></script>
     <script src="anime.min.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>

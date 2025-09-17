@@ -2,12 +2,12 @@
 
 $enable-rounded: false;
 
-$uno: #ffef29;
-$dos: #0effdb;
-$tres: #90ff17;
-$cuatro: #ff9000;
-$enable-cssgrid: true;
+$uno: #ffc107;
+$dos: #198754;
+$tres: #6610f2;
+$cuatro: #fd7e14;
 
+$enable-cssgrid: true;
 @import "./bootstrap/bootstrap/scss/variables";
 
 ///////////////////////////////////////////////////////////////////
@@ -33,6 +33,20 @@ $enable-cssgrid: true;
 
 @import "./bootstrap/bootstrap/scss/utilities";
 
+
+$all-colors: map-merge-multiple(
+  $blues,
+  $indigos,
+  $purples,
+  $pinks,
+  $reds,
+  $oranges,
+  $yellows,
+  $greens,
+  $teals,
+  $cyans
+);
+
 $utilities: map-merge(
   $utilities,
   (
@@ -44,11 +58,28 @@ $utilities: map-merge(
             map-merge(
               map-get(map-get($utilities, "background-color"), "values"),
               (
-                "uno" : $uno,
-                "dos" : $dos,
-                "tres" : $tres,
-                "cuatro" : $cuatro
+                "uno": $uno,
+                "dos": $dos,
+                "tres": $tres,
+                "cuatro": $cuatro,
               )
+            ),
+        )
+      ),
+  )
+);
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "background-color":
+      map-merge(
+        map-get($utilities, "background-color"),
+        (
+          values:
+            map-merge(
+              map-get(map-get($utilities, "background-color"), "values"),
+              $all-colors
             ),
         )
       ),
@@ -115,19 +146,31 @@ body {
   margin-top: 10px;
   height: 100vh;
   scrollbar-width: none;
+  font-family: "Manufacturing Consent", system-ui;
 }
+
 
 .main {
   height: 100%;
 }
 
 .grid {
-    width: 200px;
+  width: 200px;
 }
 
-.grid div{
-    width: 100px;
-    height: 100px;
+.grid div {
+  width: 100px;
+  height: 100px;
+  z-index: 0;
+}
+
+aside {
+  margin-left: 15px;
+}
+audio {
+  height: 25px;
+  width: 220px;
+  display: block;
 }
 
 .col-principal {

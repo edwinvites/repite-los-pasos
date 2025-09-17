@@ -1,20 +1,27 @@
-let longitud_secuencia = 1;
+// const { easing } = require("./anime.min");
 
-const cuadro_sup_izq = document.getElementsByClassName("cuadro-sup-izq")[0];
-const cuadro_sup_der = document.getElementsByClassName("cuadro-sup-der")[0];
-const cuadro_inf_izq = document.getElementsByClassName("cuadro-inf-izq")[0];
-const cuadro_inf_der = document.getElementsByClassName("cuadro-inf-der")[0];
+const sup_izq = document.getElementById("sup_izq");
+const sup_der = document.getElementById("sup_der");
+const inf_izq = document.getElementById("inf_izq");
+const inf_der = document.getElementById("inf_der");
+const barra_intentos = document.getElementsByClassName("progress-bar")[0];
+const cantidad_d_toques = document.getElementById("cantidad_de_toques");
+const caja_mensajes = document.getElementById("caja_mensajes");
+const caja_botones = document.getElementById("caja_botones");
 
-console.log(cuadro_sup_izq);
 
-let secuencia_de_botones = [];
+let longitud_secuencia = undefined;
+let porcentaje_de_oportunidades = 100;
+let secuencia = [];
+let usuario_secuencia = [];
 let respaldo_ids_aleatorios = [];
-let puede_clickear_cuadros = false;
-let numero_del_cuadro = {
-  0: "cuadro-sup-izq",
-  1: "cuadro-sup-der",
-  2: "cuadro-inf-izq",
-  3: "cuadro-inf-der",
+let activados_los_botones = false;
+let dando_secuencia = false;
+let botones = {
+  0: sup_der,
+  1: sup_izq,
+  2: inf_der,
+  3: inf_izq,
 };
 
 // let divCantidadDRepeticiones = document.getElementById("div_cantidad_D_Combinaciones");
@@ -32,39 +39,171 @@ let botonRepetir = document.getElementById("repetir");
 // div_monedas.appendChild(svg_moneda.cloneNode());
 // div_monedas.appendChild(svg_moneda.cloneNode());
 
-cuadro_sup_izq.addEventListener("click", function (evento) {
-  if (puede_clickear_cuadros === true) {
-    if (evento.isTrusted) {
-      evaluar_clicks(0);
+
+let a_sound = document.createElement("audio");
+let b_sound = document.createElement("audio");
+let c_sound = document.createElement("audio");
+let d_sound = document.createElement("audio");
+a_sound.src = "./assets/fail-234710.mp3"
+b_sound.src = "./assets/spin-complete-295086.mp3"
+c_sound.src = "./assets/electronic-instrument.mp3"
+d_sound.src = "./assets/electronic-instrument-sharp-close-short.mp3"
+
+
+const cssHexColors = [
+  "#F0F8FF",
+  "#F0FFFF",
+  "#00FFFF",
+  "#00FFFF",
+  "#7FFFD4",
+  "#6495ED",
+  "#0000FF",
+  "#00008B",
+  "#8A2BE2",
+  "#8B008B",
+  "#DC143C",
+  "#FF1493",
+  "#FF7F50",
+  "#D2691E",
+  "#A52A2A",
+  "#8B0000",
+  "#FF8C00",
+  "#FFD700",
+  "#B8860B",
+  "#F0E68C",
+  "#F5F5DC",
+  "#FAEBD7",
+  "#FFE4C4",
+  "#FFEBCD",
+  "#FFF8DC",
+  "#DEB887",
+  "#5F9EA0",
+  "#008B8B",
+  "#006400",
+  "#556B2F"
+];
+
+
+const redShades = [
+  "#FFEBEB",
+  "#FFC9C9",
+  "#FFA8A8",
+  "#FF8787",
+  "#FF6B6B",
+  "#FA5252",
+  "#F03E3E",
+  "#E03131",
+  "#C92A2A",
+  "#A51111",
+  "#FFCCCC",
+  "#FF9999",
+  "#FF6666",
+  "#FF3333",
+  "#FF0000",
+  "#CC0000",
+  "#990000",
+  "#660000",
+  "#400000",
+  "#1A0000"
+];
+
+
+
+
+
+  function show_luces(num_cilcos = 1, exito) {
+  let cantidad_ciclos = 15;
+  if (num_cilcos === 1) {
+    sup_izq.classList.remove("bg-uno");
+    sup_der.classList.remove("bg-dos");
+    inf_izq.classList.remove("bg-tres");
+    inf_der.classList.remove("bg-cuatro");
+  }
+  num_cilcos = num_cilcos || 1;
+  if (num_cilcos === cantidad_ciclos) {
+    sup_izq.classList.add("bg-uno");
+    sup_der.classList.add("bg-dos");
+    inf_izq.classList.add("bg-tres");
+    inf_der.classList.add("bg-cuatro");
+  }
+  
+  if (num_cilcos < cantidad_ciclos)
+    anime({
+      targets: '.colores',
+      backgroundColor: function () {
+        return exito? cssHexColors[anime.random(0, 29)] : redShades[anime.random(0, 19)]
+      },
+      easing: 'easeInOutQuad',
+      duration: 100,
+      complete: () => { show_luces(num_cilcos + 1, exito) },
+    });
+
+
+}
+
+sup_izq.addEventListener("click", function (evento) {
+
+  if (evento.isTrusted && !dando_secuencia) {
+    c_sound.play();
+    correr_animaciones(evento.target, "click_cuadro")
+    if (secuencia.length) {
+      usuario_secuencia.push(evento.target);
+      evaluar_usuario(0);
     }
+  }
+  if (!evento.isTrusted && dando_secuencia) {
+    c_sound.play();
+    correr_animaciones(evento.target, "click_cuadro")
+  }
+
+});
+
+sup_der.addEventListener("click", function (evento) {
+  if (evento.isTrusted && !dando_secuencia) {
+    c_sound.play();
+    correr_animaciones(evento.target, "click_cuadro")
+    if (secuencia.length) {
+      usuario_secuencia.push(evento.target);
+      evaluar_usuario(0);
+    }
+  }
+  if (!evento.isTrusted && dando_secuencia) {
+    c_sound.play();
+    correr_animaciones(evento.target, "click_cuadro")
   }
 });
 
-cuadro_sup_der.addEventListener("click", function (evento) {
-  if (puede_clickear_cuadros === true) {
-    if (evento.isTrusted) {
-      evaluar_clicks(1);
+inf_izq.addEventListener("click", function (evento) {
+  if (evento.isTrusted && !dando_secuencia) {
+    c_sound.play();
+    correr_animaciones(evento.target, "click_cuadro")
+    if (secuencia.length) {
+      usuario_secuencia.push(evento.target);
+      evaluar_usuario(0);
     }
+  }
+  if (!evento.isTrusted && dando_secuencia) {
+    c_sound.play();
+    correr_animaciones(evento.target, "click_cuadro")
   }
 });
 
-cuadro_inf_izq.addEventListener("click", function (evento) {
-  if (puede_clickear_cuadros === true) {
-    if (evento.isTrusted) {
-      evaluar_clicks(2);
+inf_der.addEventListener("click", function (evento) {
+  if (evento.isTrusted && !dando_secuencia) {
+    c_sound.play();
+    correr_animaciones(evento.target, "click_cuadro")
+    if (secuencia.length) {
+      usuario_secuencia.push(evento.target);
+      evaluar_usuario(0);
     }
+  }
+  if (!evento.isTrusted && dando_secuencia) {
+    c_sound.play();
+    correr_animaciones(evento.target, "click_cuadro")
   }
 });
 
-cuadro_inf_der.addEventListener("click", function (evento) {
-  if (puede_clickear_cuadros === true) {
-    if (evento.isTrusted) {
-      evaluar_clicks(3);
-    }
-  }
-});
-
-function correr_animaciones(clase, nombre_d_la_animacion) {
+async function correr_animaciones(clase, nombre_d_la_animacion) {
   switch (nombre_d_la_animacion) {
     case "clickBotonJugar":
       anime({
@@ -84,11 +223,11 @@ function correr_animaciones(clase, nombre_d_la_animacion) {
       anime({
         targets: clase,
         scale: [
-          { value: 2, duration: 100, easing: "easeOutExpo" },
-          { value: 1, duration: 500 },
+          { value: 1, duration: 100, easing: "easeOutExpo" },
+          { value: 4, duration: 500 },
         ],
         opacity: [
-          { value: 0.2, duration: 100, easing: "easeOutExpo" },
+          { value: 0.1, duration: 800, easing: "easeOutExpo" },
           { value: 1, duration: 500 },
         ],
         easing: "easeInOutSine",
@@ -96,23 +235,21 @@ function correr_animaciones(clase, nombre_d_la_animacion) {
       break;
 
     case "click_cuadro":
-      anime({
+      await anime({
         targets: clase,
-        scale: [
-          { value: 2, duration: 100, easing: "easeOutExpo" },
-          { value: 1, duration: 500 },
+        filter: [{ value: 'brightness(0.2)', duration: 300, easing: "easeOutExpo" },
+        { value: 'brightness(1.0)', duration: 500 }
         ],
         easing: "easeInOutSine",
       });
       break;
-    case "acerto":
+    case "click_adecuado":
       anime({
         targets: clase,
-        scale: [
-          { value: 2, duration: 100, easing: "easeOutExpo" },
-          { value: 1, duration: 500 },
+        filter: [{ value: 'brightness(0.4)', duration: 100 },
+        { value: 'brightness(1.0)', duration: 500 }
         ],
-        easing: "easeInOutSine",
+        easing: 'easeInOutSine'
       });
       break;
     case "fallo":
@@ -162,55 +299,65 @@ function correr_animaciones(clase, nombre_d_la_animacion) {
   }
 }
 
-async function evaluar_clicks(numero) {
-  if (numero === secuencia_de_botones[0]) {
-    correr_animaciones(`.${numero_del_cuadro[numero]}`, "acerto");
-    secuencia_de_botones.shift();
-  }
-  if (secuencia_de_botones.length == 0) {
-    puede_clickear_cuadros = false;
-    await siguienteCombinacion();
-    return;
-  }
-}
+async function evaluar_usuario() {
+  // se evalua hasta donde ha clickeado el usuario
+  let usuario_replica_secuencia = usuario_secuencia.every((element, index) => element === secuencia[index]);
+
+  if (usuario_replica_secuencia) {
+
+    if (usuario_secuencia.length === secuencia.length) {
+      dando_secuencia = true;
+      caja_botones.style.cursor = "";
+      usuario_secuencia = [];
+      await pausa(1000);
+      await b_sound.play();
+      show_luces(1,true);
+      await pausa(3000);
+      await siguienteCombinacion();
+    }
 
 
-async function repetir() {
-  secuencia_de_botones = respaldo_ids_aleatorios.map((_) => _);
-  for (let index = 0; index < secuencia_de_botones.length; index++) {
-    await mostrar_secuencia(secuencia_de_botones[index], "botones");
+  } else {
+    dando_secuencia=true;
+    await pausa(1000);
+    a_sound.play();
+    usuario_secuencia = [];
+    caja_mensajes.innerText="Desde el inicio";
+    await pausa(2000);
+    caja_mensajes.innerText="";
+    porcentaje_de_oportunidades -= 10;
+    barra_intentos.setAttribute("style", `width: ${porcentaje_de_oportunidades}%`);
+    // show_luces(1,false);
+    // await pausa(1000);
+    await mostrar_secuencia();
+    
   }
+
+
 }
+
 
 // const myModal = new bootstrap.Modal(document.getElementById("myModal"), {});
 
 async function siguienteCombinacion() {
-  longitud_secuencia++;
-  await pausa(2000);
-  armar_secuencia(longitud_secuencia);
-  for (let index = 0; index < secuencia_de_botones.length; index++) {
-    await mostrar_secuencia(secuencia_de_botones[index], "click_cuadro");
-  }
-
-  puede_clickear_cuadros = true;
+  dando_secuencia = true;
+  incrementar_secuencia();
+  cantidad_d_toques.innerText = secuencia.length;
+  mostrar_secuencia();
 }
 
 async function iniciarJuego() {
-  secuencia_de_botones = [];
-  $("#btn-inicio").attr("disabled", true);
-  $("#repetir").removeClass("disabled");
-  armar_secuencia(longitud_secuencia);
-  //   await pausaInicio();
-
-  for (let index = 0; index < secuencia_de_botones.length; index++) {
-    await mostrar_secuencia(secuencia_de_botones[index], "click_cuadro");
-  }
-
-  puede_clickear_cuadros = true;
+  dando_secuencia = true;
+  porcentaje_de_oportunidades = 100;
+  barra_intentos.setAttribute("style", `width: ${porcentaje_de_oportunidades}%`)
+  await pausa(800).catch(e => console.log(e));
+  incrementar_secuencia();
+  cantidad_d_toques.innerText = secuencia.length;
+  await mostrar_secuencia().catch(e => console.log(e));
+  activados_los_botones = true;
 }
 
 function pausa(milisegundos) {
-  //   correr_animaciones(0, "oscurecerBotones");
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve();
@@ -218,18 +365,24 @@ function pausa(milisegundos) {
   });
 }
 
-function armar_secuencia(cantidad) {
-  for (let index = 0; index < cantidad; index++) {
-    secuencia_de_botones.push(Math.floor(4 * Math.random()));
-  }
-  respaldo_ids_aleatorios = [...secuencia_de_botones];
+function incrementar_secuencia() {
+secuencia.push(botones[Math.floor(4 * Math.random())]);
 }
 
-const mostrar_secuencia = function (index, nombre_d_la_animacion) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      correr_animaciones(`.${numero_del_cuadro[index]}`, nombre_d_la_animacion);
-      resolve();
-    }, 800);
-  });
-};
+async function mostrar_secuencia() {
+
+
+  for (let index = 0; index < secuencia.length; index++) {
+    // await mostrar_secuencia(secuencia[index], "click_cuadro");
+    await new Promise((resolve, reject) => {
+      setTimeout(() => {
+        secuencia[index].click();
+        resolve();
+      }, 800);
+    });
+  }
+  await pausa(500);
+  caja_mensajes.innerText="";
+  dando_secuencia = false;
+  caja_botones.style.cursor = "pointer";
+}
