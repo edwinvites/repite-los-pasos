@@ -319,6 +319,7 @@ async function evaluar_usuario() {
 
   } else {
     dando_secuencia=true;
+    caja_botones.style.cursor = "";
     await pausa(1000);
     a_sound.play();
     usuario_secuencia = [];
@@ -329,11 +330,8 @@ async function evaluar_usuario() {
     barra_intentos.setAttribute("style", `width: ${porcentaje_de_oportunidades}%`);
     // show_luces(1,false);
     // await pausa(1000);
-    await mostrar_secuencia();
-    
+    await mostrar_secuencia(); 
   }
-
-
 }
 
 
@@ -348,13 +346,13 @@ async function siguienteCombinacion() {
 
 async function iniciarJuego() {
   dando_secuencia = true;
+  secuencia= [];
   porcentaje_de_oportunidades = 100;
   barra_intentos.setAttribute("style", `width: ${porcentaje_de_oportunidades}%`)
   await pausa(800).catch(e => console.log(e));
   incrementar_secuencia();
   cantidad_d_toques.innerText = secuencia.length;
   await mostrar_secuencia().catch(e => console.log(e));
-  activados_los_botones = true;
 }
 
 function pausa(milisegundos) {
@@ -370,8 +368,6 @@ secuencia.push(botones[Math.floor(4 * Math.random())]);
 }
 
 async function mostrar_secuencia() {
-
-
   for (let index = 0; index < secuencia.length; index++) {
     // await mostrar_secuencia(secuencia[index], "click_cuadro");
     await new Promise((resolve, reject) => {
@@ -381,7 +377,7 @@ async function mostrar_secuencia() {
       }, 800);
     });
   }
-  await pausa(500);
+  await pausa(1000);
   caja_mensajes.innerText="";
   dando_secuencia = false;
   caja_botones.style.cursor = "pointer";
