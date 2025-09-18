@@ -312,7 +312,7 @@ async function evaluar_usuario() {
       await pausa(1000);
       await b_sound.play();
       show_luces(1,true);
-      await pausa(3000);
+      await pausa(1500);
       await siguienteCombinacion();
     }
 
