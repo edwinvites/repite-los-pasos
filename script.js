@@ -11,7 +11,7 @@ const caja_botones = document.getElementById("caja_botones");
 
 
 let longitud_secuencia = undefined;
-let porcentaje_de_oportunidades = 100;
+let porcentaje_de_oportunidades = 0;
 let secuencia = [];
 let usuario_secuencia = [];
 let respaldo_ids_aleatorios = [];
@@ -44,10 +44,14 @@ let a_sound = document.createElement("audio");
 let b_sound = document.createElement("audio");
 let c_sound = document.createElement("audio");
 let d_sound = document.createElement("audio");
+let e_sound = document.createElement("audio");
+let f_sound = document.createElement("audio");
 a_sound.src = "./assets/fail-234710.mp3"
 b_sound.src = "./assets/spin-complete-295086.mp3"
 c_sound.src = "./assets/electronic-instrument.mp3"
 d_sound.src = "./assets/electronic-instrument-sharp-close-short.mp3"
+e_sound.src = "./assets/electronic-instrument-high-digital-close.mp3"
+f_sound.src = "./assets/electronic-instrument-single-high.mp3"
 
 
 const cssHexColors = [
@@ -111,7 +115,7 @@ const redShades = [
 
 
 
-  function show_luces(num_cilcos = 1, exito) {
+function show_luces(num_cilcos = 1, exito) {
   let cantidad_ciclos = 15;
   if (num_cilcos === 1) {
     sup_izq.classList.remove("bg-uno");
@@ -126,12 +130,12 @@ const redShades = [
     inf_izq.classList.add("bg-tres");
     inf_der.classList.add("bg-cuatro");
   }
-  
+
   if (num_cilcos < cantidad_ciclos)
     anime({
       targets: '.colores',
       backgroundColor: function () {
-        return exito? cssHexColors[anime.random(0, 29)] : redShades[anime.random(0, 19)]
+        return exito ? cssHexColors[anime.random(0, 29)] : redShades[anime.random(0, 19)]
       },
       easing: 'easeInOutQuad',
       duration: 100,
@@ -141,10 +145,10 @@ const redShades = [
 
 }
 
-sup_izq.addEventListener("click", function (evento) {
+sup_izq.addEventListener("click", async function (evento) {
 
   if (evento.isTrusted && !dando_secuencia) {
-    c_sound.play();
+    await c_sound.play();
     correr_animaciones(evento.target, "click_cuadro")
     if (secuencia.length) {
       usuario_secuencia.push(evento.target);
@@ -152,30 +156,14 @@ sup_izq.addEventListener("click", function (evento) {
     }
   }
   if (!evento.isTrusted && dando_secuencia) {
-    c_sound.play();
-    correr_animaciones(evento.target, "click_cuadro")
-  }
-
-});
-
-sup_der.addEventListener("click", function (evento) {
-  if (evento.isTrusted && !dando_secuencia) {
-    c_sound.play();
-    correr_animaciones(evento.target, "click_cuadro")
-    if (secuencia.length) {
-      usuario_secuencia.push(evento.target);
-      evaluar_usuario(0);
-    }
-  }
-  if (!evento.isTrusted && dando_secuencia) {
-    c_sound.play();
-    correr_animaciones(evento.target, "click_cuadro")
+    await c_sound.play();
+    await correr_animaciones(evento.target, "click_cuadro")
   }
 });
 
-inf_izq.addEventListener("click", function (evento) {
+sup_der.addEventListener("click", async function (evento) {
   if (evento.isTrusted && !dando_secuencia) {
-    c_sound.play();
+    await d_sound.play();
     correr_animaciones(evento.target, "click_cuadro")
     if (secuencia.length) {
       usuario_secuencia.push(evento.target);
@@ -183,14 +171,14 @@ inf_izq.addEventListener("click", function (evento) {
     }
   }
   if (!evento.isTrusted && dando_secuencia) {
-    c_sound.play();
-    correr_animaciones(evento.target, "click_cuadro")
+    await d_sound.play();
+    await correr_animaciones(evento.target, "click_cuadro")
   }
 });
 
-inf_der.addEventListener("click", function (evento) {
+inf_izq.addEventListener("click", async function (evento) {
   if (evento.isTrusted && !dando_secuencia) {
-    c_sound.play();
+    await e_sound.play();
     correr_animaciones(evento.target, "click_cuadro")
     if (secuencia.length) {
       usuario_secuencia.push(evento.target);
@@ -198,8 +186,23 @@ inf_der.addEventListener("click", function (evento) {
     }
   }
   if (!evento.isTrusted && dando_secuencia) {
-    c_sound.play();
+    await e_sound.play();
+    await correr_animaciones(evento.target, "click_cuadro")
+  }
+});
+
+inf_der.addEventListener("click", async function (evento) {
+  if (evento.isTrusted && !dando_secuencia) {
+    await f_sound.play();
     correr_animaciones(evento.target, "click_cuadro")
+    if (secuencia.length) {
+      usuario_secuencia.push(evento.target);
+      evaluar_usuario(0);
+    }
+  }
+  if (!evento.isTrusted && dando_secuencia) {
+    await f_sound.play();
+    await correr_animaciones(evento.target, "click_cuadro")
   }
 });
 
@@ -237,8 +240,8 @@ async function correr_animaciones(clase, nombre_d_la_animacion) {
     case "click_cuadro":
       await anime({
         targets: clase,
-        filter: [{ value: 'brightness(0.2)', duration: 300, easing: "easeOutExpo" },
-        { value: 'brightness(1.0)', duration: 500 }
+        filter: [{ value: 'blur(6px)', duration: 100, easing: "easeOutExpo" },
+        { value: 'blur(0)', duration: 100 }
         ],
         easing: "easeInOutSine",
       });
@@ -310,27 +313,33 @@ async function evaluar_usuario() {
       caja_botones.style.cursor = "";
       usuario_secuencia = [];
       await pausa(1000);
-      await b_sound.play();
-      show_luces(1,true);
-      await pausa(1500);
+      // await b_sound.play();
+      // show_luces(1,true);
+      // await pausa(1500);
       await siguienteCombinacion();
     }
 
 
   } else {
-    dando_secuencia=true;
+    dando_secuencia = true;
     caja_botones.style.cursor = "";
     await pausa(1000);
     a_sound.play();
     usuario_secuencia = [];
-    caja_mensajes.innerText="Desde el inicio";
-    await pausa(2000);
-    caja_mensajes.innerText="";
-    porcentaje_de_oportunidades -= 10;
-    barra_intentos.setAttribute("style", `width: ${porcentaje_de_oportunidades}%`);
-    // show_luces(1,false);
+    porcentaje_de_oportunidades -= 20;
+    console.log({ porcentaje_de_oportunidades });
+    if (porcentaje_de_oportunidades) {
+      caja_mensajes.innerText = "De Nuevo";
+      await pausa(2000);
+      caja_mensajes.innerText = `Nivel ${secuencia.length}`;
+      await mostrar_secuencia();
+    } else {
+      show_luces(1, false);
+      await pausa(1500);
+      caja_mensajes.innerText = "Press Any Key";
+    }
+    // barra_intentos.setAttribute("style", `width: ${porcentaje_de_oportunidades}%`);
     // await pausa(1000);
-    await mostrar_secuencia(); 
   }
 }
 
@@ -340,19 +349,22 @@ async function evaluar_usuario() {
 async function siguienteCombinacion() {
   dando_secuencia = true;
   incrementar_secuencia();
-  cantidad_d_toques.innerText = secuencia.length;
+  caja_mensajes.innerText = `Nivel ${secuencia.length}`;
+  // cantidad_d_toques.innerText = secuencia.length;
   mostrar_secuencia();
 }
 
 async function iniciarJuego() {
+  caja_mensajes.innerText = "";
   dando_secuencia = true;
-  secuencia= [];
+  secuencia = [];
   porcentaje_de_oportunidades = 100;
-  barra_intentos.setAttribute("style", `width: ${porcentaje_de_oportunidades}%`)
+  // barra_intentos.setAttribute("style", `width: ${porcentaje_de_oportunidades}%`)
   await pausa(800).catch(e => console.log(e));
   incrementar_secuencia();
-  cantidad_d_toques.innerText = secuencia.length;
+  caja_mensajes.innerText = `Nivel ${secuencia.length}`;
   await mostrar_secuencia().catch(e => console.log(e));
+  caja_mensajes.innerText = `Nivel ${secuencia.length}`;
 }
 
 function pausa(milisegundos) {
@@ -364,7 +376,7 @@ function pausa(milisegundos) {
 }
 
 function incrementar_secuencia() {
-secuencia.push(botones[Math.floor(4 * Math.random())]);
+  secuencia.push(botones[Math.floor(4 * Math.random())]);
 }
 
 async function mostrar_secuencia() {
@@ -374,11 +386,16 @@ async function mostrar_secuencia() {
       setTimeout(() => {
         secuencia[index].click();
         resolve();
-      }, 800);
+      }, 500);
     });
   }
   await pausa(1000);
-  caja_mensajes.innerText="";
+  caja_mensajes.innerText = `Nivel ${secuencia.length}`;
   dando_secuencia = false;
   caja_botones.style.cursor = "pointer";
 }
+
+
+document.addEventListener("keypress", () => {
+  if (!porcentaje_de_oportunidades) iniciarJuego();
+})

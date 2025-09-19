@@ -2,10 +2,10 @@
 
 $enable-rounded: false;
 
-$uno: #ffc107;
-$dos: #198754;
-$tres: #6610f2;
-$cuatro: #fd7e14;
+$uno: #ff5e00;
+$dos: #7af8ff;
+$tres: #39ff14;
+$cuatro: #fde802;
 
 $enable-cssgrid: true;
 @import "./bootstrap/bootstrap/scss/variables";
@@ -150,17 +150,10 @@ body {
 }
 
 
-.main {
-  height: 100%;
-}
-
-.grid {
-  width: 200px;
-}
 
 .grid div {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   z-index: 0;
 }
 
@@ -286,4 +279,13 @@ audio {
   100% {
     box-shadow: 0 0 0 35px rgba(255, 255, 255, 0);
   }
+}
+
+
+@font-face {
+  font-family: "Nigthmare";
+  src: url("/assets/fuentes/Nightmare\ Codehack.otf")
+    format("truetype");
+  font-weight: 900;
+  font-style: normal;
 }

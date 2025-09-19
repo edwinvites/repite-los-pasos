@@ -4402,22 +4402,22 @@ progress {
 
 .bg-uno {
   --bs-bg-opacity: 1;
-  background-color: #ffc107 !important;
+  background-color: #ff5e00 !important;
 }
 
 .bg-dos {
   --bs-bg-opacity: 1;
-  background-color: #198754 !important;
+  background-color: #7af8ff !important;
 }
 
 .bg-tres {
   --bs-bg-opacity: 1;
-  background-color: #6610f2 !important;
+  background-color: #39ff14 !important;
 }
 
 .bg-cuatro {
   --bs-bg-opacity: 1;
-  background-color: #fd7e14 !important;
+  background-color: #fde802 !important;
 }
 
 .bg-blue-100 {
@@ -7511,17 +7511,9 @@ body {
   font-family: "Manufacturing Consent", system-ui;
 }
 
-.main {
-  height: 100%;
-}
-
-.grid {
-  width: 200px;
-}
-
 .grid div {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   z-index: 0;
 }
 
@@ -7647,6 +7639,12 @@ audio {
   100% {
     box-shadow: 0 0 0 35px rgba(255, 255, 255, 0);
   }
+}
+@font-face {
+  font-family: "Nigthmare";
+  src: url("/assets/fuentes/Nightmare Codehack.otf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
 }
 
 /*# sourceMappingURL=output.css.map */
